@@ -1,22 +1,78 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from 'react'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import { graphql, StaticQuery } from 'gatsby'
+import Post from '../components/Post'
+import PaginationLinks from '../components/PaginationLinks'
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+// Thanks to 'Classed'. This blog is partial copy of 'Classed' Institute and their Github Page.
+// Original name was "Code Blog"
+const IndexPage = () => {
+  const postsPerPage = 2
+  let numberOfPages
+  return (
+    <Layout pageTitle="TechTalk">
+      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <StaticQuery
+        query={indexQuery}
+        render={data => {
+          numberOfPages = Math.ceil(
+            data.allMarkdownRemark.totalCount / postsPerPage
+          )
+          return (
+            <div>
+              {data.allMarkdownRemark.edges.map(({ node }) => (
+                <Post
+                  key={node.id}
+                  title={node.frontmatter.title}
+                  slug={node.fields.slug}
+                  author={node.frontmatter.author}
+                  body={node.excerpt}
+                  date={node.frontmatter.date}
+                  fluid={node.frontmatter.image.childImageSharp.fluid}
+                  tags={node.frontmatter.tags}
+                />
+              ))}
+              <PaginationLinks currentPage={1} numberOfPages={numberOfPages} />
+            </div>
+          )
+        }}
+      />
+    </Layout>
+  )
+}
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+const indexQuery = graphql`
+  query indexQuery {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: 2
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date(formatString: "MMM Do YYYY")
+            author
+            tags
+            image {
+              childImageSharp {
+                fluid(maxWidth: 600) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+          fields {
+            slug
+          }
+          excerpt
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage

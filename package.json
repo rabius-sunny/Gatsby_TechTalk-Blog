@@ -1,22 +1,30 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "tech-talk",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Learn Web Technologies with the easiest method.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Muhammad Bin Salam",
   "dependencies": {
+    "bootstrap": "^4.6.0",
+    "disqus-react": "^1.0.11",
     "gatsby": "^2.32.3",
     "gatsby-image": "^2.11.0",
+    "gatsby-plugin-catch-links": "^2.10.0",
     "gatsby-plugin-manifest": "^2.12.0",
     "gatsby-plugin-offline": "^3.10.0",
     "gatsby-plugin-react-helmet": "^3.10.0",
+    "gatsby-plugin-sass": "^3.2.0",
     "gatsby-plugin-sharp": "^2.14.1",
     "gatsby-source-filesystem": "^2.11.0",
+    "gatsby-transformer-remark": "^2.16.0",
     "gatsby-transformer-sharp": "^2.12.0",
+    "lodash": "^4.17.20",
+    "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "reactstrap": "^8.9.0"
   },
   "devDependencies": {
     "prettier": "2.2.1"
